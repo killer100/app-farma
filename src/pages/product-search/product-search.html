@@ -1,0 +1,33 @@
+<!--
+  Generated template for the EstablishmentSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <ion-input [(ngModel)]="searchTerm" [formControl]="textInput" type="text" #searchInput></ion-input>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only [hidden]="!flags.loadingResults">
+        <ion-spinner></ion-spinner>
+      </button>
+      <button ion-button icon-only color="royal" (click)="removeText()" [hidden]="searchTerm.length==0">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list no-lines>
+    <button ion-item *ngFor="let item of items" (click)="onSelectItem(item)" class="suggest-item">
+      {{ item.value }}
+      <ion-icon name="md-arrow-back" item-end class="rotate-45"></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>
