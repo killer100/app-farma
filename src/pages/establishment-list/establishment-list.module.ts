@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { EstablishmentListPage } from './establishment-list';
 import { UbigeoProvider } from '../../providers/ubigeo';
+import { EstablishmentProvider } from '../../providers/establishment';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { UbigeoProvider } from '../../providers/ubigeo';
     IonicPageModule.forChild(EstablishmentListPage),
   ],
   providers: [
-    UbigeoProvider
+    UbigeoProvider,
+    EstablishmentProvider
   ]
 })
 export class EstablishmentListPageModule { }

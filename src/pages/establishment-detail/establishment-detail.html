@@ -1,0 +1,71 @@
+<!--
+  Generated template for the EstablishmentDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{establishment.data.NOMB}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding class="cards-bg">
+
+  <ion-card class="adv-map card-detail">
+    <div style="position: relative">
+      <img src="assets/imgs/advance-card-map-madison.png">
+      <ion-fab right top>
+        <button ion-fab class="fab-map">
+        <ion-icon name='pin'></ion-icon>
+      </button>
+      </ion-fab>
+    </div>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='football'></ion-icon>
+      <h2>Razón Social</h2>
+      <p>{{establishment.data.RSOC}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>RUC</h2>
+      <p>{{establishment.data.NRUC}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>CATEGORÍA</h2>
+      <p>{{establishment.data.CATE}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>UBIGEO</h2>
+      <p>{{establishment.data.DEPT}} - {{establishment.data.PROV}} - {{establishment.data.DIST}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>DIRECCIÓN</h2>
+      <p>{{establishment.data.DIRE}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>HORARIO DE ATENCIÓN</h2>
+      <p>{{establishment.data.HFUC}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>SITUACIÓN</h2>
+      <p>{{establishment.data.STDO}}</p>
+    </ion-item>
+    <ion-item-divider color="light">Personal QF</ion-item-divider>
+    <ion-item *ngFor="let item of establishment.personas">
+      <ion-icon color="subtle" large item-start name='wine'></ion-icon>
+      <h2>{{item.NOMB}}</h2>
+      <p>{{item.CARG}}</p>
+      <p>{{item.HTRB}}</p>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

@@ -10,7 +10,7 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title tappable (click)="searchEstablishment()">{{searchTerm || "Buscar"}}</ion-title>
+    <ion-title tappable (click)="searchEstablishment()">{{searchTerm || "Buscar establecimiento"}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="searchEstablishment()">
         <ion-icon name="search"></ion-icon>
@@ -18,6 +18,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar no-border-top>
+    <ion-spinner margin-left [hidden]="!flags.isLoadingDetailEstablishment"></ion-spinner>
     <ion-buttons end>
       <button ion-button icon-right menuToggle="right">
         Filtrar
@@ -39,8 +40,28 @@
   </ion-grid>
 
   <div [hidden]="items.length==0">
-    <ion-card *ngFor="let item of items" (click)="productDetail(item.id)">
-
+    <ion-card *ngFor="let item of items" class="card-list-establishment">
+      <ion-item>
+        <ion-icon color="subtle" large item-start name='home' color="primary"></ion-icon>
+        <h2>{{item.NOMB}}</h2>
+        <p>
+          {{item.DEPT}} - {{item.PROV}} - {{item.DIST}} {{item.DIRE}}
+        </p>
+      </ion-item>
+      <ion-row justify-content-center align-items-center text-center>
+        <ion-col>
+          <ion-note>{{item.CATE}}</ion-note>
+        </ion-col>
+        <ion-col>
+          <ion-note>{{item.STDO}}</ion-note>
+        </ion-col>
+        <ion-col center text-center>
+          <button ion-button icon-left clear small (click)="establishmentDetail(item.CODI)" [disabled]="flags.isLoadingDetailEstablishment">
+            <ion-icon name="text"></ion-icon>
+            <div>Ver más datos</div>
+          </button>
+        </ion-col>
+      </ion-row>
     </ion-card>
   </div>
 

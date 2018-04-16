@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { UbigeoProvider } from '../../providers/ubigeo';
 import { DEFAULT_DEPARTAMENTO, DEFAULT_PROVINCIA, DEFAULT_DISTRITO, DEFAULT_NOT_SELECTED_UBIGEO } from '../../values/ubigeo';
 import { LIST_SITUACION, LIST_CATEGORIA } from '../../values/establecimiento';
+import { EstablishmentProvider } from '../../providers/establishment';
 
 /**
  * Generated class for the EstablishmentListPage page.
@@ -22,7 +23,7 @@ export class EstablishmentListPage {
 
   searchTerm: string;
   items: any[];
-  flags: { isLoading: boolean, menuSwipeEnabled: boolean };
+  flags: { isLoading: boolean, menuSwipeEnabled: boolean, isLoadingDetailEstablishment: boolean };
   filters: { ubigeo: { departamento: string, provincia: string, distrito: string }, situacion: string, categoria: string };
   DepartamentosList: { departamento_id: string, label: string }[];
   ProvinciasList: { departamento_id: string, provincia_id: string, label: string }[];
@@ -31,9 +32,9 @@ export class EstablishmentListPage {
   CategoriaList: { id: string, label: string }[];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ubigeo: UbigeoProvider, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ubigeo: UbigeoProvider, public menuCtrl: MenuController, private establishment: EstablishmentProvider) {
     this.searchTerm = null;
-    this.flags = { isLoading: false, menuSwipeEnabled: true };
+    this.flags = { isLoading: false, menuSwipeEnabled: true, isLoadingDetailEstablishment: false };
     this.items = [];
     this.enableMenuFilter();
     this.initFilters();
@@ -60,9 +61,10 @@ export class EstablishmentListPage {
   searchEstablishment() {
     this.navCtrl.push('establishment-search-page', { "parentPage": this, "searchTerm": this.searchTerm });
   }
-  
+
   searchByEstablishmentName(term) {
     this.searchTerm = term;
+    this.findEstablishment();
   }
 
   initFilters() {
@@ -72,7 +74,7 @@ export class EstablishmentListPage {
         provincia: null,
         distrito: null,
       },
-      situacion: '',
+      situacion: '01',
       categoria: ''
     };
   }
@@ -132,5 +134,32 @@ export class EstablishmentListPage {
         success();
     });
   }
+
+  findEstablishment() {
+    this.items = [];
+    this.flags.isLoading = true;
+    //aplicar filtros y enviarlos al providers
+    this.establishment.listEstablishments().then((Response: { head: string, data: Array<any> }) => {
+
+      this.items = Response.data;
+      this.flags.isLoading = false;
+    });
+  }
+
+  establishmentDetail(codigo: string) {
+    this.flags.isLoadingDetailEstablishment = true;
+    this.establishment.getEstablishment(codigo).then((Response: any) => {
+      this.flags.isLoadingDetailEstablishment = false;
+      if (Response) {
+        let establishment = {
+          data: Response.data[0],
+          personas: Response.pers
+        }
+        this.navCtrl.push('establishment-detail-page', { "establishment": establishment });
+      }
+    });
+  }
+
+
 
 }

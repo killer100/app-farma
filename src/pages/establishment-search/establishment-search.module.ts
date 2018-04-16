@@ -8,6 +8,6 @@ import { EstablishmentSearchPage } from './establishment-search';
   ],
   imports: [
     IonicPageModule.forChild(EstablishmentSearchPage),
-  ],
+  ]
 })
 export class EstablishmentSearchPageModule {}
