@@ -1,0 +1,23 @@
+page-login {
+    .login-content{
+        background: color($colors, primary, base);
+    }
+    .item {
+        background-color: transparent;
+    }  
+
+    .item.input-has-focus{
+        .label{
+            color:white;
+        }
+    }
+
+    .text-input{
+        color: white;
+    }
+
+    .login-title{
+        color:white;
+    }
+  
+}
